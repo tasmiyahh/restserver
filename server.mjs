@@ -10,11 +10,11 @@ const port = process.env.PORT || 3000
 let users = [];
 
 function randomnumber(){
-  return Math.floor(math.random()* 100000);
+  return Math.floor(Math.random()* 100000);
 }
 
 
-app.post('/user:userId', (req, res) => {
+app.post('/user', (req, res) => {
 
   let newuser = {
     id : randomnumber(),
@@ -64,12 +64,12 @@ app.put('/user:userId', (req, res) => {
       }
   }
 
-  if (userIndex == -1){
+  if (userIndex === -1){
     res.send("user is not found")
   }else{
     if(req.body.fullname){
       users[userIndex].fullname = req.body.fullname
-    }
+    };
     if(req.body.password){
       users[userIndex].password = req.body.password
     }

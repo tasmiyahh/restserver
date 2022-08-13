@@ -41,7 +41,7 @@ app.get('/user:userId', (req, res) => {
 
  for(let i =0 ; i < users.length ; i ++){
   if(users[i].id == userId ){
-    res.send("user is created");
+    res.send(users[i]);
     isfound = true;
     break;
   }

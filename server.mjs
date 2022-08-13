@@ -7,21 +7,84 @@ app.use(express.json());
 
 const port = process.env.PORT || 3000
 
-let home = [];
+let users = [];
+
+function randomnumber(){
+  return Math.floor(math.random()* 100000);
+}
 
 
-app.post('/home', (req, res) => {
+app.post('/user:userId', (req, res) => {
 
+  let newuser = {
+    id : randomnumber(),
+    fullname : req.body.fullname,
+    password : req.body.password
+  }
+   
+  users.push(newuser)
     console.log(req.body);
-    home.push(req.body);
+   
     res.send('your input is created')
   })
   
 
 
-app.get('/home', (req, res) => {
-  res.send(home)
+app.get('/users', (req, res) => {
+  res.send(users)
 })
+
+app.get('/user:userId', (req, res) => {
+ let userId = req.params.userId;
+
+ let isfound = false;
+
+ for(let i =0 ; i < users.length ; i ++){
+  if(users[i].id == userId ){
+    res.send("user is created");
+    isfound = true;
+    break;
+  }
+ }
+
+ if(!isfound){
+  res.send("user is not created")
+ }
+})
+
+app.put('/user:userId', (req, res) => {
+  let userId = req.params.userId;
+
+  let userIndex = -1;
+
+  for(let i = 0 ; i<users.length ; i++){
+    if(users[i].id == userId){
+      userIndex = i ;  
+      break ;
+      }
+  }
+
+  if (userIndex == -1){
+    res.send("user is not found")
+  }else{
+    if(req.body.fullname){
+      users[userIndex].fullname = req.body.fullname
+    }
+    if(req.body.password){
+      users[userIndex].password = req.body.password
+    }
+    
+
+  }
+  res.send(users[userIndex]);
+})
+
+
+
+
+
+
+
 
 
 

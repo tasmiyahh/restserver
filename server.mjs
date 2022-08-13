@@ -34,22 +34,39 @@ app.get('/users', (req, res) => {
   res.send(users)
 })
 
-app.get('/user:userId', (req, res) => {
- let userId = req.params.userId;
+// app.get('/user:userId', (req, res) => {
+//  let userId = req.params.userId;
 
- let isfound = false;
+//  let isfound = false;
 
- for(let i =0 ; i < users.length ; i ++){
-  if(users[i].id == userId ){
-    res.send(users[i]);
-    isfound = true;
-    break;
+//  for(let i =0 ; i < users.length ; i ++){
+//   if(users[i].id == userId ){
+//     res.send(users[i]);
+//     isfound = true;
+//     break;
+//   }
+//  }
+
+//  if(!isfound){
+//   res.send("user is not created")
+//  }
+// })
+
+app.get("/user/:userId", (req, res) => { // get single user
+
+  let userId = req.params.userId;
+  let isFound = false;
+
+  for (let i = 0; i < users.length; i++) {
+      if (users[i].id == userId) {
+          res.send(users[i]);
+          isFound = true;
+          break;
+      }
   }
- }
-
- if(!isfound){
-  res.send("user is not created")
- }
+  if (!isFound) {
+      res.send("user not found");
+  }
 })
 
 app.put('/user:userId', (req, res) => {
